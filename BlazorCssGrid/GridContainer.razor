@@ -1,0 +1,92 @@
+﻿@using System.Text;
+
+<div style="@GetStyle()" @attributes="InputAttributes">
+    @ChildContent
+</div>
+
+@code {
+    /// <summary>
+    /// If set to true then the layout of the grid will be "inline" instead of stretching to fill the container.
+    /// </summary>
+    /// <value>Default is false</value>
+    [Parameter]
+    public bool Inline { get; set; }
+
+    /// <summary>
+    /// Definition of the number and width of each column.  Examples: auto 80px
+    /// </summary>
+    [Parameter]
+    public string Columns { get; set; }
+
+    /// <summary>
+    /// Definition of the number and size height of each row.  Examples: auto 80px
+    /// </summary>
+    [Parameter]
+    public string Rows { get; set; }
+
+        /// <summary>
+    /// Definition of the space between each Column.  Examples: auto 80px
+    /// </summary>
+    [Parameter]
+    public string ColumnGap { get; set; }
+
+    /// <summary>
+    /// Definition of the space between each row.  Examples: auto 80px
+    /// </summary>
+    [Parameter]
+    public string RowGap { get; set; }
+
+    [Parameter]
+    public string height { get; set; } = "100%";
+
+    [Parameter]
+    public string width { get; set; } = "100%";
+
+    [Parameter]
+    public string style { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> InputAttributes { get; set; }
+
+    protected string GetStyle()
+    {
+        StringBuilder sb = new StringBuilder();
+        if (this.height != null)
+        {
+            sb.Append($"height: {height};");
+        }
+
+        if (this.width != null)
+        {
+            sb.Append($"width: {width};");
+        }
+
+        if (this.Inline)
+            sb.Append("display: inline-grid;");
+        else
+            sb.Append("display: grid;");
+
+        if (ColumnGap != null)
+            sb.Append($"grid-column-gap: {ColumnGap};");
+
+        if (RowGap != null)
+            sb.Append($"grid-row-gap: {RowGap};");
+
+        if (Columns != null)
+            sb.Append($"grid-template-columns: {Columns};");
+
+        if (Rows != null)
+            sb.Append($"grid-template-rows: {Rows};");
+
+        if (this.style != null)
+        {
+            sb.Append($"{style.TrimEnd(';')};");
+        }
+
+        return sb.ToString();
+    }
+}
+

@@ -1,0 +1,55 @@
+﻿@inherits LayoutComponentBase
+@using BlazorCssGrid;
+<!--
+
+<div class="sidebar">
+    <NavMenu />
+</div>
+
+<div class="main">
+    <div class="top-row px-4">
+        <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+    </div>
+
+    <div class="content px-4">
+        @Body
+    </div>
+</div>
+-->
+
+<GridContainer Rows="auto 1fr auto" Columns="auto 1fr auto" ColumnGap="10px" RowGap="10px">
+    <GridItem Row="1" Column="1" style="border-color: pink; border-style:solid;padding:10px;">
+        <p>Row 1 Col 1</p>
+    </GridItem>
+    <GridItem Row="1" Column="2" style="border-color: red; border-style:solid;padding:10px;">
+        <p>Row 1 Col 2</p>
+    </GridItem>
+    <GridItem Row="1" Column="3" style="border-color: blue; border-style:solid;padding:10px;">
+        <p>Row 1 Col 3</p>
+    </GridItem>
+    <GridItem Row="2" Column="1" ColumnSpan="3" Style="border-color:chartreuse; border-style:dashed;">
+        <GridContainer Columns="auto 1fr auto" RowGap="10px" ColumnGap="10px" >
+            <GridItem Column="1" style="background-color:lightsalmon;padding:10px;">
+                @for (int i = 0; i < 1000; i++)
+                {
+                    <p>This GridItem is cropped @i.</p>
+                }
+            </GridItem>
+            <GridItem Column="2" VerticalScrollbar="Auto" Style="background-color: lightgreen;padding:10px;">
+                @for (int i = 0; i < 1000; i++)
+                {
+                    <p>This GridItem should scroll @i.</p>
+                }
+            </GridItem>
+            <GridItem Column="3" style="background-color: lightblue;padding:10px;">
+                @Body
+            </GridItem>
+        </GridContainer>
+    </GridItem>
+    <GridItem Row="3" Column="1" style="border-color: black; border-style:solid;padding:10px;">
+        Row 3 Col 2
+    </GridItem>
+    <GridItem Row="3" Column="2" ColumnSpan="2" style="border-color: purple; border-style: solid; padding: 10px;">
+        Row 3 Col 2/3<br />
+    </GridItem>
+</GridContainer>

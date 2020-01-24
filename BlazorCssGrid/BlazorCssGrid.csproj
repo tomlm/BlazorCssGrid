@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RazorLangVersion>3.0</RazorLangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Tom Laird-McConnell</Authors>
+    <Company>Tom Laird-McConnell</Company>
+    <Product />
+    <Description>CSS Grid blazor component which make it very easy to make a grid layout for your web application.  
+* Can define GridContainers with columns, rows, column spans, column rows, etc. to define clean layout.
+* Can make any GridItem scrollable by a single property
+</Description>
+    <PackageProjectUrl>https://github.com/tomlm/BlazorCssGrid</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tomlm/BlazorCssGrid</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Copyright>Copyright (c) 2020 Tom Laird-McConnell</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageTags>blazor razor grid css</PackageTags>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
