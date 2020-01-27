@@ -179,10 +179,10 @@ Then use the classes in your markup
 
 ## Important CSS trick for full screen layouts.
 If you are using a Grid layout for your SPA you probably want your grid to fill the whole visible screen in a web browser.  
-You can do this with the 100vh and 100vw width and height definitions **as long as you disable extra margins**, but you may
-find that many browsers end up adding a scrollbar when you do this. 
+You can do this with the 100vh and 100vw width and height definitions, but you will find that many browsers end up adding 
+a scrollbar when you do this. 
 
-The solution is easy.  In your CSS you can disable the padding and margin the browser is adding by simply adding this bit of CSS:
+The solution is easy, you simply need to **disable the extra margins**.  In your CSS you can disable the padding and margin the browser is adding by simply adding this bit of CSS:
 ```css
 * {
     box-sizing: border-box;
