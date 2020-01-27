@@ -4,116 +4,114 @@
 
 <!-- Define actual html structure with CSS classes bound to the dynamicaly built CSS elements in the <Styled> tags below -->
 <div class="@mainGrid">
-    <div class="@row1col1">Row 1 Col 1</div>
-    <div class="@row1col2">Row 1 Col 2</div>
-    <div class="@row1col3">Row 1 Col 3</div>
+    <div class="@mainGrid-row1col1">Row 1 Col 1</div>
+    <div class="@mainGrid-row1col2">Row 1 Col 2</div>
+    <div class="@mainGrid-row1col3">Row 1 Col 3</div>
 
-    <div class="@innerGrid">
-        <div class="@innercol1">
+    <div class="@mainGrid-row2 @innerGrid">
+        <div class="@innerGrid-col1">
             @for (int i = 0; i < 1000; i++)
             {
                 <p>This GridItem is cropped @i.</p>
             }
         </div>
 
-        <div class="@innercol2">
+        <div class="@innerGrid-col2">
             @for (int i = 0; i < 1000; i++)
             {
                 <p>This GridItem should scroll @i.</p>
             }
         </div>
-        <div class="@innercol3">
+        <div class="@innerGrid-col3">
             @Body
         </div>
     </div>
 
-    <div class="@row3col1">
+    <div class="@mainGrid-row3col1">
         Row 3 Col 2
     </div>
 
-    <div class="@row3col2">
+    <div class="@mainGrid-row3col2">
         Row 3 Col 2/3<br />
     </div>
 </div>
 
 @code {
-    // define variables to hold the computed CSS styles
-    private string
-        mainGrid,
-            row1col1, row1col2, row1col3,
-            innerGrid,
-                innercol1, innercol2, innercol3,
-            row3col1, row3col2;
+    // define variables to hold the computed CSS class names
+    private string mainGrid, innerGrid;
 }
 
 <!-- Define main grid container styles-->
 <Styled @bind-Classname="@mainGrid">
+    <!-- mainGrid is a container -->
     <GridContainer Rows="auto 1fr auto" RowGap="10px"
                    Columns="auto 1fr auto" ColumnGap="10px" />
+
+    <!-- Define Row1 classes-->
+    &-row1col1 {
+        <GridItem Column="1" />
+        border-style:solid;
+        padding:10px;
+        border-color: pink;
+    }
+
+    &-row1col2 {
+        <GridItem Column="2" />
+        border-style:solid;
+        padding:10px;
+        border-color: red;
+    }
+
+    &-row1col3 {
+        <GridItem Column="3" />
+        border-style:solid;
+        padding:10px;
+        border-color: blue;
+    }
+
+    <!-- define Row 2 classes-->
+    &-row2 {
+        <GridItem Row="2" Column="1" ColumnSpan="3" />
+    }
+
+    <!-- Define Row 3 classes -->
+    &-row3col1 {
+        <GridItem Row="3" Column="1" />
+        border-style:solid;
+        padding:10px;
+        border-color: black;
+    }
+
+    &-row3col2 {
+        <GridItem Row="3" Column="2" ColumnSpan="2" />
+        border-style:solid;
+        padding:10px;
+        border-color: purple;
+    }
 </Styled>
 
-<!-- Define Row1 styles-->
-<Styled @bind-Classname="@row1col1">
-    <GridItem Column="1" />
-    border-style:solid;
-    padding:10px;
-    border-color: pink;
-</Styled>
-
-<Styled @bind-Classname="@row1col2">
-    <GridItem Column="2" />
-    border-style:solid;
-    padding:10px;
-    border-color: red;
-</Styled>
-
-<Styled @bind-Classname="@row1col3">
-    <GridItem Column="3" />
-    border-style:solid;
-    padding:10px;
-    border-color: blue;
-</Styled>
-
-<!--- define Row 2 styles-->
+<!--- define innerGrid class -->
 <Styled @bind-Classname="@innerGrid">
-    <!--- define Row 2 position-->
-    <GridItem Row="2" Column="1" ColumnSpan="3" />
     <!--- define that this is also a container and define container shape -->
     <GridContainer Rows="100%" RowGap="10px"
                    Columns="auto 1fr auto" ColumnGap="10px" />
     border-style:solid;
     padding:10px;
     border-color: chartruese;
-</Styled>
 
-<Styled @bind-Classname="@innercol1">
-    <GridItem Column="1" />
-    background-color:lightsalmon;
-    padding:10px;
-</Styled>
+    &-col1 {
+        <GridItem Column="1" />
+        background-color:lightsalmon;
+        padding:10px;
+    }
 
-<Styled @bind-Classname="@innercol2">
-    <GridItem Column="2" VerticalScrollbar="Auto" />
-    background-color: lightgreen;
-</Styled>
+    &-col2 {
+        <GridItem Column="2" VerticalScrollbar="Auto" />
+        background-color: lightgreen;
+    }
 
-<Styled @bind-Classname="@innercol3">
-    <GridItem Column="3" />
-    background-color: lightblue;
-</Styled>
-
-
-<!-- Define Row 3 styles-->
-<Styled @bind-Classname="@row3col1">
-    <GridItem Row="3" Column="1" />
-    border-style:solid;
-    padding:10px;
-    border-color: black;
-</Styled>
-
-<Styled @bind-Classname="@row3col2">
-    <GridItem Row="3" Column="2" ColumnSpan="2" />
-    border-style:solid;
-    padding:10px;
-    border-color: purple;
+    &-col3 {
+        <GridItem Column="3" />
+        background-color: lightblue;
+    }
 </Styled>
