@@ -1,8 +1,7 @@
 ﻿@using System.Text;
+@using BlazorStyled
 
-<div style="@GetStyle()" @attributes="InputAttributes">
-    @ChildContent
-</div>
+@GetStyle()
 
 @code {
     /// <summary>
@@ -24,7 +23,7 @@
     [Parameter]
     public string Rows { get; set; }
 
-        /// <summary>
+    /// <summary>
     /// Definition of the space between each Column.  Examples: auto 80px
     /// </summary>
     [Parameter]
@@ -37,31 +36,22 @@
     public string RowGap { get; set; }
 
     [Parameter]
-    public string height { get; set; } = "100%";
+    public string Height { get; set; } = "100%";
 
     [Parameter]
-    public string width { get; set; } = "100%";
-
-    [Parameter]
-    public string style { get; set; }
-
-    [Parameter]
-    public RenderFragment ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> InputAttributes { get; set; }
+    public string Width { get; set; } = "100%";
 
     protected string GetStyle()
     {
         StringBuilder sb = new StringBuilder();
-        if (this.height != null)
+        if (this.Height != null)
         {
-            sb.Append($"height: {height};");
+            sb.Append($"height: {Height};");
         }
 
-        if (this.width != null)
+        if (this.Width != null)
         {
-            sb.Append($"width: {width};");
+            sb.Append($"width: {Width};");
         }
 
         if (this.Inline)
@@ -80,11 +70,6 @@
 
         if (Rows != null)
             sb.Append($"grid-template-rows: {Rows};");
-
-        if (this.style != null)
-        {
-            sb.Append($"{style.TrimEnd(';')};");
-        }
 
         return sb.ToString();
     }

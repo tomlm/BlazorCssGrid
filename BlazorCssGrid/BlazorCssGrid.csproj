@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -17,10 +17,14 @@
     <Copyright>Copyright (c) 2020 Tom Laird-McConnell</Copyright>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageTags>blazor razor grid css</PackageTags>
+    <Version>1.1.0</Version>
+    <FileVersion>1.1.0.0</FileVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
   </PropertyGroup>
 
 
   <ItemGroup>
+    <PackageReference Include="BlazorStyled" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="3.1.0" />
   </ItemGroup>

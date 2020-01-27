@@ -2,19 +2,22 @@
 This blazor component makes it super easy to create application layouts for WebApps that look exactly how you want them to.
 
 ## Built 100% using CSS 
-This library is built using <a href="https://www.w3schools.com/css/css_grid.asp">CSS Grids</a> which means there are 
-no JS or CSS libraries to install.
+This library is used to build CSS fragments for BlazorStyled library.
 
 It's usage is inspired by the kind of layouts you can achieve using XAML Grid Controls, and if you are familiar with
 laying out an application's controls using grid semantics this will be very familiar to you.
 
 # Install
-Simply add a nuget package reference to **BlazorCssGrid**
+Add package references
+
+```dotnet add BlazorStyled```
 
 ```dotnet add BlazorCssGrid```
 
+Make sure to add the BlazorStyled configuration changess.
+
 # Usage
-There are 2 controls
+There are 2 controls which are used inside a StyledElement
 * **GridContainer** -  Define the shapes of Rows and Columns
 * **GridItem** - Wrapper around any component which defines where the component should be rendered.
 
@@ -45,61 +48,131 @@ Any grid item can be made to have horizontal and/or vertical scroll bars, allowi
 
 ## Example
 
+Define your style sheet dynamiclly:
+
 ```html
 
-<GridContainer Rows="auto 1fr auto" Columns="auto 1fr auto" ColumnGap="10px" RowGap="10px">
-    <!-- defines first row with 3 columns -->
-    <GridItem Row="1" Column="1" style="border-color: pink; border-style:solid;padding:10px;">
-        <p>Row 1 Col 1</p>
-    </GridItem>
+@code {
+    // define variables to hold the computed CSS styles
+    private string
+        mainGrid,
+            row1col1, row1col2, row1col3,
+            innerGrid,
+                innercol1, innercol2, innercol3,
+            row3col1, row3col2;
+}
 
-    <GridItem Row="1" Column="2" style="border-color: red; border-style:solid;padding:10px;">
-        <p>Row 1 Col 2</p>
-    </GridItem>
+<!-- Define main grid container styles-->
+<Styled @bind-Classname="@mainGrid">
+    <GridContainer Rows="auto 1fr auto" RowGap="10px" 
+                Columns="auto 1fr auto" ColumnGap="10px" />
+</Styled>
 
-    <GridItem Row="1" Column="3" style="border-color: blue; border-style:solid;padding:10px;">
-        <p>Row 1 Col 3</p>
-    </GridItem>
+<!-- Define Row1 styles-->
+<Styled @bind-Classname="@row1col1">
+    <GridItem Column="1" />
+    border-style:solid;
+    padding:10px;
+    border-color: pink;
+</Styled>
 
-    <!-- defines second row which spans the above 3 columns and defines a nested GridContainer made up of 3 columns -->
-    <GridItem Row="2" Column="1" ColumnSpan="3" Style="border-color:chartreuse; border-style:dashed;">
+<Styled @bind-Classname="@row1col2">
+    <GridItem Column="2" />
+    border-style:solid;
+    padding:10px;
+    border-color: red;
+</Styled>
 
-        <GridContainer Columns="100px 1fr 100px" RowGap="10px" ColumnGap="10px" >
-            <!-- defines column 1 as a gridItem with content but no scrollbars  -->
-            <GridItem Column="1" style="background-color:lightsalmon;padding:10px;">
-                @for (int i = 0; i < 1000; i++)
-                {
-                    <p>This GridItem is cropped @i.</p>
-                }
-            </GridItem>
+<Styled @bind-Classname="@row1col3">
+    <GridItem Column="3" />
+    border-style:solid;
+    padding:10px;
+    border-color: blue;
+</Styled>
 
-            <!-- defines column 2 a gridItem with content has vertical scrollbars  -->
-            <GridItem Column="2" VerticalScrollbar="Auto" Style="background-color: lightgreen;padding:10px;">
-                @for (int i = 0; i < 1000; i++)
-                {
-                    <p>This GridItem should scroll @i.</p>
-                }
-            </GridItem>
+<!--- define Row 2 styles-->
+<Styled @bind-Classname="@innerGrid">
+    <!--- define Row 2 position-->
+    <GridItem Row="2" Column="1" ColumnSpan="3" />
+    <!--- define that this is also a container and define container shape -->
+    <GridContainer Rows="100%" RowGap="10px"
+                Columns="auto 1fr auto" ColumnGap="10px" />
+    border-style:solid;
+    padding:10px;
+    border-color: chartruese;
+</Styled>
 
-            <!-- defines column 3 -->
-            <GridItem Column="3" style="background-color: lightblue;padding:10px;">
-                @Body
-            </GridItem>
+<Styled @bind-Classname="@innercol1">
+    <GridItem Column="1" />
+    background-color:lightsalmon;
+    padding:10px;
+</Styled>
 
-        </GridContainer>
+<Styled @bind-Classname="@innercol2">
+    <GridItem Column="2" VerticalScrollbar="Auto" />
+    background-color: lightgreen;
+</Styled>
 
-    </GridItem>
+<Styled @bind-Classname="@innercol3">
+    <GridItem Column="3" />
+    background-color: lightblue;
+</Styled>
 
-    <!-- defines third row has 2 columns, one which spans the columns -->
-    <GridItem Row="3" Column="1" style="border-color: black; border-style:solid;padding:10px;">
-        Row 3 Col 2
-    </GridItem>
 
-    <GridItem Row="3" Column="2" ColumnSpan="2" style="border-color: purple; border-style: solid; padding: 10px;">
-        Row 3 Col 2/3<br />
-    </GridItem>
-</GridContainer>
+<!-- Define Row 3 styles-->
+<Styled @bind-Classname="@row3col1">
+    <GridItem Row="3" Column="1" />
+    border-style:solid;
+    padding:10px;
+    border-color: black;
+</Styled>
+
+<Styled @bind-Classname="@row3col2">
+    <GridItem Row="3" Column="2" ColumnSpan="2" />
+    border-style:solid;
+    padding:10px;
+    border-color: purple;
+</Styled>
 ```
+
+Then use the classes in your markup
+
+```html
+<!-- Define actual html structure with CSS classes bound to the dynamicaly built CSS elements in the <Styled> tags below -->
+<div class="@mainGrid">
+    <div class="@row1col1">Row 1 Col 1</div>
+    <div class="@row1col2">Row 1 Col 2</div>
+    <div class="@row1col3">Row 1 Col 3</div>
+
+    <div class="@innerGrid">
+        <div class="@innercol1">
+            @for (int i = 0; i < 1000; i++)
+            {
+                <p>This GridItem is cropped @i.</p>
+            }
+        </div>
+
+        <div class="@innercol2">
+            @for (int i = 0; i < 1000; i++)
+            {
+                <p>This GridItem should scroll @i.</p>
+            }
+        </div>
+        <div class="@innercol3">
+            @Body
+        </div>
+    </div>
+
+    <div class="@row3col1">
+        Row 3 Col 2
+    </div>
+
+    <div class="@row3col2">
+        Row 3 Col 2/3<br />
+    </div>
+</div>
+```
+
 
 ![screenshot.png](https://raw.githubusercontent.com/tomlm/BlazorCssGrid/master/screenshot.png)
 
@@ -120,9 +193,9 @@ The solution is easy.  In your CSS you can disable the padding and margin the br
 
 Now you can have your root grid container simply set the height and width to 100vh/100vw like this:
 ```html
-<GridContainer height="100vh" width="100vh">
+<body height="100vh" width="100vh">
 ...
-</GridContainer>
+</body>
 ```
 
 

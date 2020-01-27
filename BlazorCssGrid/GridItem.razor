@@ -1,8 +1,6 @@
 ﻿@using System.Text;
 
-<div style="@GetStyle()" @attributes="InputAttributes">
-    @ChildContent
-</div>
+@GetStyle()
 
 @code {
     /// <summary>
@@ -53,18 +51,6 @@
     [Parameter]
     public string VerticalScrollbar { get; set; }
 
-    /// <summary>
-    /// Styles
-    /// </summary>
-    [Parameter]
-    public string style { get; set; }
-
-    [Parameter]
-    public RenderFragment ChildContent { get; set; }
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> InputAttributes { get; set; }
-
     protected string GetStyle()
     {
         StringBuilder sb = new StringBuilder();
@@ -93,11 +79,6 @@
 
         sb.Append($"overflow-x: {HorizontalScrollbar ?? "hidden"};");
         sb.Append($"overflow-y: {VerticalScrollbar ?? "hidden"};");
-
-        if (style != null)
-        {
-            sb.Append($"{style};");
-        }
 
         return sb.ToString();
     }

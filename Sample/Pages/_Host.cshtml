@@ -4,6 +4,7 @@
 @{
     Layout = null;
 }
+@using BlazorStyled
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,9 +15,11 @@
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
+    @(await Html.RenderComponentAsync<BlazorStyled.ServerSideStyled>(RenderMode.ServerPrerendered))
 </head>
 <body>
     <app>
+        @(await Html.RenderComponentAsync<Sample.App>(RenderMode.ServerPrerendered))
         <component type="typeof(App)" render-mode="ServerPrerendered" />
     </app>
 
